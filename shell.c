@@ -16,10 +16,17 @@ char ** parse_args( char * line) {
 
 
 int main(){
-  char line[100];
-  scanf("%[^\n]%*c", line);
-  char ** args = parse_args(line);  
-  execvp(args[0], args);
-      
+  int f = fork();
+
+  if(f==-1){
+    printf("error");
+  }
+
+  if(f==0){
+    char line[100];
+    scanf("%[^\n]%*c", line);
+    char ** args = parse_args(line);  
+    execvp(args[0], args);
+  }
   return 0; 
 } 
