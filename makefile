@@ -4,7 +4,7 @@ all: shell.o
 shell.o: shell.c shell.h
 	gcc -c shell.c
 
-clear:
+clean:
 	rm *.o
 
 run:

@@ -6,13 +6,11 @@
 
 char ** parse_args( char * line) {
   char ** arr = malloc(5 * sizeof(char *));
-
   int i = 0;
   while(line){
     arr[i] = strsep(&line, " ");
     i++;
   }
-
   return arr;
 }
 
@@ -20,8 +18,7 @@ char ** parse_args( char * line) {
 int main(){
   char line[100];
   scanf("%[^\n]%*c", line);
-  char ** args = parse_args(line);
-  
+  char ** args = parse_args(line);  
   execvp(args[0], args);
       
   return 0; 
