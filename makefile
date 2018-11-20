@@ -6,6 +6,7 @@ shell.o: shell.c shell.h
 
 clean:
 	rm *.o
+	rm a.out
 
-run:
+run: all
 	./a.out

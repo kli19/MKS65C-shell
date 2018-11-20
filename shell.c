@@ -2,7 +2,8 @@
 #include<stdlib.h> 
 #include<unistd.h>
 #include<string.h>
-
+# include <sys/wait.h>
+# include <fcntl.h>
 
 char ** parse_args( char * line) {
   char ** arr = malloc(5 * sizeof(char *));
@@ -16,17 +17,22 @@ char ** parse_args( char * line) {
 
 
 int main(){
-  int f = fork();
+  while(1){
+    int f = fork();
 
-  if(f==-1){
-    printf("error");
-  }
+    if(f==-1){
+      printf("error");
+    }
 
-  if(f==0){
-    char line[100];
-    scanf("%[^\n]%*c", line);
-    char ** args = parse_args(line);  
-    execvp(args[0], args);
+    if(f==0){
+      char line[100];
+      scanf("%[^\n]%*c", line);
+      char ** args = parse_args(line);  
+      execvp(args[0], args);
+    }
+
+    int status;
+    wait(&status);
   }
   return 0; 
 } 
