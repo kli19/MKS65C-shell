@@ -49,8 +49,8 @@ char *** finalCmd( char * line ){
     }
 
   }
-
   //
+  
   int i = 0;
   arr = multi_cmd(line, arr);
   while (arr[i] || !i){
