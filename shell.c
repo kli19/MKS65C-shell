@@ -17,12 +17,26 @@ char ** parse_args( char * line ) {
   return arr;
 }
 
+char * strip_string(char * line){
+  //strips whitespace in beginning of string
+  while((*line) == ' '){
+    line++;
+    //printf("%s\n", line); 
+  }
+  return line;
+}
+
 void execute(){
   char * line = malloc(5 * sizeof(char));
   scanf("%[^\n]%*c", line);
 
+  if(!line){
+    return;
+  }
+
   while(line){
     char * command = strsep(&line, ";");
+    command = strip_string(command);
     char ** args = parse_args(command);
     int f = fork();
     if(f==-1){
@@ -39,6 +53,7 @@ void execute(){
 
 
 int main(){
+  printf("%s\n", strip_string("      hello"));
   while(1){
     int f = fork();
     
@@ -49,6 +64,7 @@ int main(){
     if(f==0){
       printf("Enter Command: ");
       execute();
+      return f;
     }
 
     int status;
