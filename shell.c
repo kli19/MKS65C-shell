@@ -23,7 +23,18 @@ char * strip_string(char * line){
   while((*line) == ' '){
     line++;
   }
-  return line;
+
+  char * end = line+strlen(line)-1;
+  int whitespace = 0;
+
+  while(end > line && (*end) == ' '){
+    end--;
+    whitespace++;
+  }
+  char * newStr = malloc(strlen(line)-whitespace);
+  strncpy(newStr, line, strlen(line)-whitespace);
+  
+  return newStr;
 }
 
 //executes commands
@@ -47,6 +58,11 @@ void execute(){
     //if the command is cd
     if (!strncmp("cd ", command, 3)){
       chdir(command+3);
+    }
+
+    //if the command is exit
+    if (!strncmp("exit", command, 4)){
+      exit(0);
     }
 
     else{
