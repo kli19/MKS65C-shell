@@ -2,8 +2,9 @@
 #include<stdlib.h>
 #include<unistd.h>
 #include<string.h>
-# include <sys/wait.h>
-# include <fcntl.h>
+#include <sys/wait.h>
+#include <fcntl.h>
+#include "shell.h"
 
 //parses a single command
 char ** parse_args( char * line ) {
@@ -11,6 +12,7 @@ char ** parse_args( char * line ) {
   int i = 0;
   while(line){
     arr[i] = strsep(&line, " ");
+    //line = strip_string(line);
     i++;
   }
   return arr;
@@ -31,6 +33,7 @@ char * strip_string(char * line){
     end--;
     whitespace++;
   }
+  
   char * newStr = malloc(strlen(line)-whitespace);
   strncpy(newStr, line, strlen(line)-whitespace);
   
@@ -42,12 +45,14 @@ void execute(){
   //allocates space to read in commands
   char * line = malloc(5 * sizeof(char));
   scanf("%[^\n]%*c", line);
+  printf("command: %s\n", line);
 
+  //--------THIS IS BROKEN-------
   //so the code doesn't break when there is no command
-  if(!line){
+  if(line==0){
     return;
   }
- 
+
   while(line){
     //separates the line into individual commands
     char * command = strsep(&line, ";");
