@@ -16,6 +16,7 @@ char ** parse_args( char * line ) {
   return arr;
 }
 
+
 //strips string of unwanted whitespace
 char * strip_string(char * line){
   //strips whitespace in beginning of string
@@ -43,23 +44,30 @@ void execute(){
     //strip the unwanted whitespace
     command = strip_string(command);
 
-    //read the arguments of the command into an array
-    char ** args = parse_args(command);
-    int f = fork();
-
-    //something went wrong with forking
-    if(f==-1){
-      printf("error");
+    //if the command is cd
+    if (!strncmp("cd ", command, 3)){
+      chdir(command+3);
     }
 
-    //execute the command in the child process
-    if(f==0){
-      execvp(args[0], args);
-    }
+    else{
+      //read the arguments of the command into an array
+      char ** args = parse_args(command);
+      int f = fork();
 
-    //wait until the child process is done
-    int status;
-    wait(&status);
+      //something went wrong with forking
+      if(f==-1){
+	printf("error");
+      }
+
+      //execute the command in the child process
+      if(f==0){
+	execvp(args[0], args);
+      }
+
+      //wait until the child process is done
+      int status;
+      wait(&status);
+    }
   }
 
 }
