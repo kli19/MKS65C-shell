@@ -1,45 +1,12 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include<unistd.h>
-#include<string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
 #include <sys/wait.h>
 #include <fcntl.h>
 #include <limits.h>
 #include "shell.h"
-
-//parses a single command
-char ** parse_args( char * line ) {
-  char ** arr = malloc(5 * sizeof(char *));
-  int i = 0;
-  while(line){
-    arr[i] = strsep(&line, " ");
-    //line = strip_string(line);
-    i++;
-  }
-  return arr;
-}
-
-
-//strips string of unwanted whitespace
-char * strip_string(char * line){
-  //strips whitespace in beginning of string
-  while((*line) == ' '){
-    line++;
-  }
-
-  char * end = line+strlen(line)-1;
-  int whitespace = 0;
-
-  while(end > line && (*end) == ' '){
-    end--;
-    whitespace++;
-  }
-  
-  char * newStr = malloc(strlen(line)-whitespace);
-  strncpy(newStr, line, strlen(line)-whitespace);
-  
-  return newStr;
-}
+#include "parse.h"
 
 //executes commands
 void execute(){
@@ -52,7 +19,7 @@ void execute(){
     char * command = strsep(&line, ";");
 
     //strip the unwanted whitespace
-    command = strip_string(command);
+    command = trim(command);
 
     //if the command is cd
     if (!strncmp("cd ", command, 3)){
