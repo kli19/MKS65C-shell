@@ -56,7 +56,8 @@ void execute(){
 
 int main(){
   while(1){
- 
+
+    //prints path
     char cwd[PATH_MAX];
     getcwd(cwd, PATH_MAX);
     printf("my_shell:~%s$ ", cwd);

@@ -31,5 +31,11 @@ parse.c
 	====================*/
 
 shell.c
-	Handles the forking an executing of commands...
+	Handles the forking an executing of commands
+	/*======== void execute() ==========
+	Inputs:  Nothing
+	Returns: Nothing
+
+	Reads commands, forks, and executes.
+	====================*/
 
