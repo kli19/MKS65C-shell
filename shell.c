@@ -4,6 +4,7 @@
 #include<string.h>
 #include <sys/wait.h>
 #include <fcntl.h>
+#include <limits.h>
 #include "shell.h"
 
 //parses a single command
@@ -45,13 +46,6 @@ void execute(){
   //allocates space to read in commands
   char * line = malloc(5 * sizeof(char));
   scanf("%[^\n]%*c", line);
-  printf("command: %s\n", line);
-
-  //--------THIS IS BROKEN-------
-  //so the code doesn't break when there is no command
-  if(line==0){
-    return;
-  }
 
   while(line){
     //separates the line into individual commands
@@ -90,15 +84,17 @@ void execute(){
       wait(&status);
     }
   }
-
 }
 
 
 int main(){
-
   while(1){
-    printf("shell$: ");
+ 
+    char cwd[PATH_MAX];
+    getcwd(cwd, PATH_MAX);
+    printf("my_shell:~%s$ ", cwd);
     execute();
+
   }
 
   return 0;
