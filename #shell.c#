@@ -49,8 +49,8 @@ void execute(char * line){
 	  printf("%s\n",*(temp-1));
 	  printf("%s\n",*temp);
 	  printf("%s\n",*(temp+1));*/
-	  //fd = redirect (*(temp+1), &fd, direction(*temp), flag(*temp));
-	  fd = redirect (*(temp+1), &fd, 0,0);
+	  fd = redirect (*(temp+1), &fd, direction(*temp), flag(*temp));
+
 	}
 	temp++;
       }

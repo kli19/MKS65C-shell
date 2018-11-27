@@ -7,11 +7,25 @@
 #include <fcntl.h>
 #include "redirect.h"
 
-int redirect(char * source, char * fd, int direction, int flag){
-  int files[3] = {STDIN_FILENO, STDOUT_FILENO, STDERR_FILENO};
+int redirect(char * source,  int * fd, int direction, int flag){
+  printf("%d%d\n", direction, flag);
+  int files[3] = {STDOUT_FILENO, STDIN_FILENO, STDERR_FILENO};
   int flags[2] = {O_CREAT|O_WRONLY, O_APPEND|O_CREAT|O_WRONLY};
-  *fd = open(source, flags[flag]);
+  *fd = open(source, flags[flag], 0777);
   dup2(*fd, files[direction]);
   return *fd;
 }
 
+int direction(char * symbol){
+  if (symbol==">" || symbol==">>"){
+    return 0;
+  }
+  return 1; 
+}
+
+int flag(char * symbol){
+  if (symbol==">" || symbol==">>"){
+    return 0;
+  }
+  return 1; 
+}
