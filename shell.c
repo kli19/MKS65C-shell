@@ -9,15 +9,15 @@
 #include "parse.h"
 
 //executes commands
-void execute(){
-  //allocates space to read in commands
-  char * line = malloc(5 * sizeof(char));
-  scanf("%[^\n]%*c", line);
+void execute(char * line){
+  if(line[0]==0){
+    strcat(line, " ");
+  }
 
   while(line){
     //separates the line into individual commands
     char * command = strsep(&line, ";");
-
+    
     //strip the unwanted whitespace
     command = trim(command);
 
@@ -45,25 +45,33 @@ void execute(){
       if(f==0){
 	execvp(args[0], args);
       }
-
+      
       //wait until the child process is done
-      int status;
-      wait(&status);
+      else{
+	int status;
+	wait(&status);
+      }
     }
   }
 }
 
 
 int main(){
+      
+  //allocates space to read in commands
+  char * line = malloc(100 * sizeof(char));
+  
+  //prints path
+  char cwd[PATH_MAX];
+  getcwd(cwd, PATH_MAX);
+  
   while(1){
-
-    //prints path
-    char cwd[PATH_MAX];
-    getcwd(cwd, PATH_MAX);
     printf("my_shell:~%s$ ", cwd);
-    execute();
-
+    fgets(line, 100, stdin);
+    execute(line);
+       
   }
+  
 
   return 0;
 }

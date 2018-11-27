@@ -1,6 +1,6 @@
 #ifndef INCL_FUNC
 #define INCL_FUNC
 
-void execute();
+void execute(char*);
 
 #endif

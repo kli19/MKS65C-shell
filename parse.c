@@ -6,7 +6,7 @@
 
 //parses a single command
 char ** parse_args( char * line ) {
-  char ** arr = malloc(5 * sizeof(char *));
+  char ** arr = malloc(100 * sizeof(char *));
   int i = 0;
   while(line){
     arr[i] = strsep(&line, " ");
@@ -27,7 +27,7 @@ char * trim(char * line){
   char * end = line+strlen(line)-1;
   int whitespace = 0;
 
-  while(end > line && (*end) == ' '){
+  while(end > line && ((*end) == ' '||(*end)=='\n')){
     end--;
     whitespace++;
   }
