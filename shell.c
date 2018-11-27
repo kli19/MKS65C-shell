@@ -22,7 +22,7 @@ void execute(char * line){
     command = trim(command);
 
     //if the command is cd
-    if (!strncmp("cd ", command, 3)){
+    if (!strncmp("cd ", command, 3)){    
       chdir(command+3);
     }
 
@@ -61,11 +61,11 @@ int main(){
   //allocates space to read in commands
   char * line = malloc(100 * sizeof(char));
   
-  //prints path
-  char cwd[PATH_MAX];
-  getcwd(cwd, PATH_MAX);
-  
   while(1){
+    //prints path
+    char cwd[PATH_MAX];
+    getcwd(cwd, PATH_MAX);
+    
     printf("my_shell:~%s$ ", cwd);
     fgets(line, 100, stdin);
     execute(line);
