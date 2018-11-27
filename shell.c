@@ -7,12 +7,17 @@
 #include <limits.h>
 #include "shell.h"
 #include "parse.h"
+#include "redirect.h"
 
 //executes commands
 void execute(char * line){
   if(line[0]==0){
     strcat(line, " ");
   }
+  //for redirection
+  int stdout_fd = dup(STDOUT_FILENO);
+  int stdin_fd = dup(STDIN_FILENO);
+  int fd = 0;
 
   while(line){
     //separates the line into individual commands
@@ -34,6 +39,19 @@ void execute(char * line){
     else{
       //read the arguments of the command into an array
       char ** args = parse_args(command);
+
+      //redirect
+      char ** temp = malloc (100 * sizeof(char));
+      temp = args;
+      while(*temp){
+	printf("%s", *temp);
+	if (strchr(*temp, '>')){
+	  printf("we are going to redirect now!\n");
+	}
+	temp++;
+      }
+
+      //fork to execute the command and return
       int f = fork();
 
       //something went wrong with forking
@@ -53,6 +71,11 @@ void execute(char * line){
       }
     }
   }
+
+  //reset redirection stuff
+  close(fd);
+  dup2(stdout_fd, STDOUT_FILENO);
+  dup2(stdin_fd, STDIN_FILENO);
 }
 
 
@@ -64,14 +87,12 @@ int main(){
   while(1){
     //prints path
     char cwd[PATH_MAX];
-    getcwd(cwd, PATH_MAX);
-    
+    getcwd(cwd, PATH_MAX);    
     printf("my_shell:~%s$ ", cwd);
+    
     fgets(line, 100, stdin);
-    execute(line);
-       
-  }
-  
+    execute(line);       
+  }  
 
   return 0;
 }
