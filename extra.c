@@ -65,18 +65,17 @@ void keyFinder(){
   int char1, char2, char3;
   printf("PRESS A KEY TO CONTINUE \n");
   char1 = getch();
-  char2 = 0;
-  if (1) { // checks to see if scrollkey was pressed
-    char2 = getch();
+  char2 = getch();
+  if (char1 == 27) { // checks to see if scrollkey was pressed
     // determines the key
     char3 = getch();
 
     switch(char3)
     {
-      case 65: printf("UP WAS PRESSED\n"); break; //up ascii value = 72
-      case 66: printf("DOWN WAS PRESSED\n"); break; //down ascii value = 80
-      case 68: printf("LEFT WAS PRESSED\n"); break; //left ascii value = 75
-      case 67: printf("RIGHT WAS PRESSED\n"); break; //right ascii value = 77
+      case 65: printf("UP WAS PRESSED\n"); break;
+      case 66: printf("DOWN WAS PRESSED\n"); break;
+      case 68: printf("LEFT WAS PRESSED\n"); break;
+      case 67: printf("RIGHT WAS PRESSED\n"); break;
 
       default:
       printf("SOME OTHER SCROLL KEY PRESSED: %d %d %d\n", char1, char2, char3); break;
