@@ -62,13 +62,14 @@ int getch(void){
 }
 
 void keyFinder(){
-  int char1, char2;
+  int char1, char2, char3;
   printf("PRESS A KEY TO CONTINUE \n");
   char1 = getch();
   char2 = 0;
   if (1) { // checks to see if scrollkey was pressed
     char2 = getch();
     // determines the key
+    char3 = getch();
 
     switch(char2)
     {
@@ -78,7 +79,7 @@ void keyFinder(){
       case 77: printf("RIGHT WAS PRESSED\n"); break; //right ascii value = 77
 
       default:
-      printf("SOME OTHER SCROLL KEY PRESSED: %d %d\n", char1, char2); break;
+      printf("SOME OTHER SCROLL KEY PRESSED: %d %d %d\n", char1, char2, char3); break;
     };
   }
   else
