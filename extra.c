@@ -69,9 +69,10 @@ void keyFinder(){
   if (char1 == 0xE0) { // checks to see if scrollkey was pressed
     char2 = getch();
     // determines the key
+
     switch(char2)
     {
-      case 72: printf("UP WAS PRESSED\n"); break; //up ascii value = 72
+      case 'A': printf("UP WAS PRESSED\n"); break; //up ascii value = 72
       case 80: printf("DOWN WAS PRESSED\n"); break; //down ascii value = 80
       case 75: printf("LEFT WAS PRESSED\n"); break; //left ascii value = 75
       case 77: printf("RIGHT WAS PRESSED\n"); break; //right ascii value = 77
@@ -82,7 +83,6 @@ void keyFinder(){
   }
   else
   printf("key pressed: %d %c\n", char1, char2);
-  system("pause");
 }
 
 int main(){
