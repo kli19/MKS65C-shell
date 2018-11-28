@@ -61,26 +61,26 @@ int getch(void){
   return ch; /*return received char */
 }
 
-void retrieve(){
-  int ch1, ch2;
+void keyFinder(){
+  int char1, char2;
   printf("PRESS A KEY TO CONTINUE \n");
-  ch1 = getch();
-  ch2 = 0;
-  if (ch1 == 0xE0) { // a scroll key was pressed
-    ch2 = getch();
-    // determine what it was
-    switch(ch2)
+  char1 = getch();
+  char2 = 0;
+  if (char1 == 0xE0) { // checks to see if scrollkey was pressed
+    char2 = getch();
+    // determines the key
+    switch(char2)
     {
-      case 72: printf("UP WAS PRESSED\n"); break;
-      case 80: printf("DOWN WAS PRESSED\n"); break;
-      case 75: printf("LEFT WAS PRESSED\n"); break;
-      case 77: printf("RIGHT WAS PRESSED\n"); break;
-      // ... we can set also others like HOME, END, PGUP, PGDOWN, ...
+      case 72: printf("UP WAS PRESSED\n"); break; //up ascii value = 72
+      case 80: printf("DOWN WAS PRESSED\n"); break; //down ascii value = 80
+      case 75: printf("LEFT WAS PRESSED\n"); break; //left ascii value = 75
+      case 77: printf("RIGHT WAS PRESSED\n"); break; //right ascii value = 77
+
       default:
-      printf("SOME OTHER SCROLL KEY PRESSED: %d %d\n", ch1, ch2); break;
+      printf("SOME OTHER SCROLL KEY PRESSED: %d %d\n", char1, char2); break;
     };
   }
   else
-  printf("key pressed: %d %c\n", ch1, ch2);
+  printf("key pressed: %d %c\n", char1, char2);
   system("pause");
 }
