@@ -8,6 +8,7 @@
 #include "shell.h"
 #include "parse.h"
 #include "redirect.h"
+#include "extra.h"
 
 //executes commands
 void execute(char * line){
@@ -22,12 +23,12 @@ void execute(char * line){
   while(line){
     //separates the line into individual commands
     char * command = strsep(&line, ";");
-    
+
     //strip the unwanted whitespace
     command = trim(command);
 
     //if the command is cd
-    if (!strncmp("cd ", command, 3)){    
+    if (!strncmp("cd ", command, 3)){
       chdir(command+3);
     }
 
@@ -67,7 +68,7 @@ void execute(char * line){
       if(f==0){
 	execvp(args[0], args);
       }
-      
+
       //wait until the child process is done
       else{
 	int status;
@@ -84,19 +85,19 @@ void execute(char * line){
 
 
 int main(){
-      
+
   //allocates space to read in commands
   char * line = malloc(100 * sizeof(char));
-  
+
   while(1){
     //prints path
     char cwd[PATH_MAX];
-    getcwd(cwd, PATH_MAX);    
+    getcwd(cwd, PATH_MAX);
     printf("my_shell:~%s$ ", cwd);
-    
+
     fgets(line, 100, stdin);
-    execute(line);       
-  }  
+    execute(line);
+  }
 
   return 0;
 }
