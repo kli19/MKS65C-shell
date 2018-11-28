@@ -71,12 +71,12 @@ void keyFinder(){
     // determines the key
     char3 = getch();
 
-    switch(char2)
+    switch(char3)
     {
-      case 72: printf("UP WAS PRESSED\n"); break; //up ascii value = 72
-      case 80: printf("DOWN WAS PRESSED\n"); break; //down ascii value = 80
-      case 75: printf("LEFT WAS PRESSED\n"); break; //left ascii value = 75
-      case 77: printf("RIGHT WAS PRESSED\n"); break; //right ascii value = 77
+      case 65: printf("UP WAS PRESSED\n"); break; //up ascii value = 72
+      case 66: printf("DOWN WAS PRESSED\n"); break; //down ascii value = 80
+      case 68: printf("LEFT WAS PRESSED\n"); break; //left ascii value = 75
+      case 67: printf("RIGHT WAS PRESSED\n"); break; //right ascii value = 77
 
       default:
       printf("SOME OTHER SCROLL KEY PRESSED: %d %d %d\n", char1, char2, char3); break;
