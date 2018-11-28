@@ -84,3 +84,8 @@ void keyFinder(){
   printf("key pressed: %d %c\n", char1, char2);
   system("pause");
 }
+
+int main(){
+  keyFinder();
+  return 0;
+}
