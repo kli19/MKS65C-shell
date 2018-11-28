@@ -66,7 +66,7 @@ void keyFinder(){
   printf("PRESS A KEY TO CONTINUE \n");
   char1 = getch();
   char2 = 0;
-  while (1) { // checks to see if scrollkey was pressed
+  if (1) { // checks to see if scrollkey was pressed
     char2 = getch();
     // determines the key
 
