@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <termios.h>
+#include<ncurses.h>
 #include "extra.h"
 
 
@@ -48,18 +49,18 @@ void history(char * line){
   }
 }
 
-int getch(void){
-  int ch;
-  struct termios oldt;
-  struct termios newt;
-  tcgetattr(STDIN_FILENO, &oldt); /*store old settings */
-  newt = oldt; /* copy old settings to new settings */
-  newt.c_lflag &= ~(ICANON | ECHO); /* make one change to old settings in new settings */
-  tcsetattr(STDIN_FILENO, TCSANOW, &newt); /*apply the new settings immediatly */
-  ch = getchar(); /* standard getchar call */
-  tcsetattr(STDIN_FILENO, TCSANOW, &oldt); /*reapply the old settings */
-  return ch; /*return received char */
-}
+// int getch(void){
+//   int ch;
+//   struct termios oldt;
+//   struct termios newt;
+//   tcgetattr(STDIN_FILENO, &oldt); /*store old settings */
+//   newt = oldt; /* copy old settings to new settings */
+//   newt.c_lflag &= ~(ICANON | ECHO); /* make one change to old settings in new settings */
+//   tcsetattr(STDIN_FILENO, TCSANOW, &newt); /*apply the new settings immediatly */
+//   ch = getchar(); /* standard getchar call */
+//   tcsetattr(STDIN_FILENO, TCSANOW, &oldt); /*reapply the old settings */
+//   return ch; /*return received char */
+// }
 
 void keyFinder(){
   int char1, char2;
@@ -72,7 +73,7 @@ void keyFinder(){
 
     switch(char2)
     {
-      case 'A': printf("UP WAS PRESSED\n"); break; //up ascii value = 72
+      case 72: printf("UP WAS PRESSED\n"); break; //up ascii value = 72
       case 80: printf("DOWN WAS PRESSED\n"); break; //down ascii value = 80
       case 75: printf("LEFT WAS PRESSED\n"); break; //left ascii value = 75
       case 77: printf("RIGHT WAS PRESSED\n"); break; //right ascii value = 77
