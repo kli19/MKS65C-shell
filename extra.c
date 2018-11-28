@@ -84,7 +84,3 @@ void retrieve(){
   printf("key pressed: %d %c\n", ch1, ch2);
   system("pause");
 }
-
-int main(){
-  return 0;
-}
