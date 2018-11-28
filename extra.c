@@ -62,13 +62,12 @@ int getch(void){
 }
 
 void keyFinder(){
-  int char1, char2, char3;
+  int char1, char2;
   printf("PRESS A KEY TO CONTINUE \n");
-  char1 = getch();
+  char1 = getchar();
   char2 = 0;
   if (char1 == 0xE0) { // checks to see if scrollkey was pressed
-    char3 = getch();
-    char2 = getch();
+    char2 = getchar();
     // determines the key
 
     switch(char2)
