@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <termios.h>
-#include<ncurses.h>
+#include <ncurses.h>
 #include "extra.h"
 
 
