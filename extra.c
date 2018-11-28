@@ -72,13 +72,13 @@ void keyFinder(){
 
     switch(char3)
     {
-      case 65: printf("UP WAS PRESSED\n"); break;
-      case 66: printf("DOWN WAS PRESSED\n"); break;
-      case 68: printf("LEFT WAS PRESSED\n"); break;
-      case 67: printf("RIGHT WAS PRESSED\n"); break;
+      case 65: printf("UP KEY\n"); break;
+      case 66: printf("DOWN KEY\n"); break;
+      case 67: printf("RIGHT KEY\n"); break;
+      case 68: printf("LEFT KEY\n"); break;
 
       default:
-      printf("SOME OTHER SCROLL KEY PRESSED: %d %d %d\n", char1, char2, char3); break;
+      printf("ERROR OTHER SCROLLKEY: %d %d %d\n", char1, char2, char3); break;
     };
   }
   else
