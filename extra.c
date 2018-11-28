@@ -8,7 +8,7 @@
 
 
 void tabby(char * line){
-
+  
 }
 
 void history(char * line){
@@ -80,8 +80,9 @@ void keyFinder(){
       default:
       printf("ERROR OTHER SCROLLKEY: %d %d %d\n", char1, char2, char3); break;
     };
-  }
-  else
+  } if (char1 == 9){
+    printf("the tab: %d",char3)
+  } else
   printf("key pressed: %d %c\n", char1, char2);
 }
 
