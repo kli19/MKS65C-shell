@@ -8,7 +8,7 @@
 
 
 void tabby(char * line){
-  
+
 }
 
 void history(char * line){
@@ -61,13 +61,14 @@ int getch(void){
   return ch; /*return received char */
 }
 
-void keyFinder(){
-  int char1, char2, char3;
+char keyFinder(){
+  int char1;
   printf("PRESS A KEY TO CONTINUE \n");
   char1 = getch();
-  char2 = getch();
   if (char1 == 27) { // checks to see if scrollkey was pressed
     // determines the key
+    int char2, char3;
+    char2 = getch();
     char3 = getch();
 
     switch(char3)
@@ -79,14 +80,10 @@ void keyFinder(){
 
       default:
       printf("ERROR OTHER SCROLLKEY: %d %d %d\n", char1, char2, char3); break;
-    };
-  } if (char1 == 9){
-    printf("the tab: %d",char3)
+    }
+  } else if (char1 == 9){
+    printf("the tab\n");
   } else
-  printf("key pressed: %d %c\n", char1, char2);
-}
-
-int main(){
-  keyFinder();
-  return 0;
+  printf("key pressed: %d %c\n", char1, char1);
+  return char1;
 }

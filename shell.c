@@ -95,7 +95,8 @@ int main(){
     getcwd(cwd, PATH_MAX);
     printf("my_shell:~%s$ ", cwd);
 
-    fgets(line, 100, stdin);
+    line += keyFinder();
+    // fgets(line, 100, stdin);
     execute(line);
   }
 

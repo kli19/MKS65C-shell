@@ -3,5 +3,6 @@
 
 void tabby(char * line);
 void history(char * line);
+char keyFinder();
 
 #endif
