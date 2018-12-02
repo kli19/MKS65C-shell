@@ -10,8 +10,32 @@
 #include "redirect.h"
 #include "extra.h"
 
+void execute(char * command){
+      //read the arguments of the command into an array
+      char ** args = parse_args(command);
+
+      //fork to execute the command and return
+      int f = fork();
+
+      //something went wrong with forking
+      if(f==-1){
+	printf("error");
+      }
+
+      //execute the command in the child process
+      if(f==0){
+	execvp(args[0], args);
+      }
+
+      //wait until the child process is done
+      else{
+	int status;
+	wait(&status);
+      }
+}
+
 //executes commands
-void execute(char * line){
+void execute_all(char * line){
   if(line[0]==0){
     strcat(line, " ");
   }
@@ -37,43 +61,19 @@ void execute(char * line){
       exit(0);
     }
 
-    else{
-      //read the arguments of the command into an array
-      char ** args = parse_args(command);
-
+    if (strchr(command, '>')){
       //redirect
-      char ** temp = malloc (100 * sizeof(char));
-      temp = args;
+      char ** temp = parse_args(command);;
       while(*temp){
-	if (strchr(*temp, '>')||strchr(*temp, '<')){
-	  /*printf("we are going to redirect now!\n");
-	  printf("%s\n",*(temp-1));
-	  printf("%s\n",*temp);
-	  printf("%s\n",*(temp+1));*/
-	  //fd = redirect (*(temp+1), &fd, direction(*temp), flag(*temp));
-	  fd = redirect (*(temp+1), &fd, 0,0);
+	if (strchr(*temp, '>')){
+	  redirect (*(temp-1), *(temp+1), &fd, direction(*temp), flag(*temp));	
 	}
 	temp++;
       }
+    }
 
-      //fork to execute the command and return
-      int f = fork();
-
-      //something went wrong with forking
-      if(f==-1){
-	printf("error");
-      }
-
-      //execute the command in the child process
-      if(f==0){
-	execvp(args[0], args);
-      }
-
-      //wait until the child process is done
-      else{
-	int status;
-	wait(&status);
-      }
+    else{
+      execute(command);
     }
   }
 
@@ -95,9 +95,9 @@ int main(){
     getcwd(cwd, PATH_MAX);
     printf("my_shell:~%s$ ", cwd);
 
-    line += keyFinder();
-    // fgets(line, 100, stdin);
-    execute(line);
+    //line += keyFinder();
+    fgets(line, 100, stdin);
+    execute_all(line);
   }
 
   return 0;
