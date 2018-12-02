@@ -68,7 +68,11 @@ void execute_all(char * line){
       redirect(command, &fd);
     }
 
-    
+    // for piping
+    if (strstr(command, "|")){
+      //printf("we are piping now\n");
+      my_pipe(command);
+    }
 
     else{
       execute(command);

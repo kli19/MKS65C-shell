@@ -1,6 +1,6 @@
-#ifndef INCL_REDIRECT
-#define INCL_REDIRECT
+#ifndef INCL_PIPE
+#define INCL_PIPE
 
-int my_pipe(char *);
+void my_pipe(char *);
 
 #endif
