@@ -61,10 +61,11 @@ int getch(void){
   return ch; /*return received char */
 }
 
-char keyFinder(){
+char * keyFinder(){
   int char1;
-  printf("PRESS A KEY TO CONTINUE \n");
+  // printf("PRESS A KEY TO CONTINUE \n");
   char1 = getch();
+
   if (char1 == 27) { // checks to see if scrollkey was pressed
     // determines the key
     int char2, char3;
@@ -73,17 +74,45 @@ char keyFinder(){
 
     switch(char3)
     {
-      case 65: printf("UP KEY\n"); break;
-      case 66: printf("DOWN KEY\n"); break;
-      case 67: printf("RIGHT KEY\n"); break;
-      case 68: printf("LEFT KEY\n"); break;
+      case 65: printf("UP KEY\n"); return "up"; break;
+      case 66: printf("DOWN KEY\n"); return "down"; break;
+      // case 67: printf("RIGHT KEY\n"); return "right"; break;
+      // case 68: printf("LEFT KEY\n"); return "left"; break;
 
       default:
       printf("ERROR OTHER SCROLLKEY: %d %d %d\n", char1, char2, char3); break;
     }
+  } else if (char1 == 10){
+    // printf("end\n");
+    return "end";
+  } else if (char1 == 127){
+    // printf("backspace\n\n");
+    return "back";
   } else if (char1 == 9){
     printf("the tab\n");
-  } else
-  printf("key pressed: %d %c\n", char1, char1);
-  return char1;
+    return "tab";
+  } else {
+  // printf("key pressed: %d %c\n", char1, char1);
+  char * ans = malloc(sizeof(char1));
+  ans[0] = char1;
+  printf("%s", ans);
+  return ans;
+  }
+  return "alex";
 }
+
+char * removeLast(char* name){
+  int i = 0;
+  for (i = 0; i< strlen(name); i++){
+    if(i > 1){
+      name[i- 1] = '\0';
+    }
+  }
+  return name;
+}
+
+//
+// int main(){
+//   keyFinder();
+//   return 0;
+// }

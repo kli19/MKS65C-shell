@@ -90,14 +90,35 @@ int main(){
   char * line = malloc(100 * sizeof(char));
 
   while(1){
+
     //prints path
     char cwd[PATH_MAX];
     getcwd(cwd, PATH_MAX);
     printf("my_shell:~%s$ ", cwd);
-
-    line += keyFinder();
+    while (1){
+      char * temp = keyFinder();
+      if (strcmp(temp,"back") == 0){
+        execute("clear");
+        printf("\nmy_shell:~%s$ ", cwd);
+        char * temp = malloc(sizeof(line));
+        temp = removeLast(line);
+        printf("BEFORE          \n");
+        // strcpy(line, temp);
+        line = temp;
+        printf("AFTER          \n");
+        printf("%s\n", line);
+      } else if (strcmp(temp,"end")){
+        strcat(line, temp);
+      }
+      else {
+        // printf("LINE: %s\n", line);
+        break;
+      }
+    }
     // fgets(line, 100, stdin);
+    printf("\012");
     execute(line);
+    strcpy(line,"");
   }
 
   return 0;
