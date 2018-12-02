@@ -4,13 +4,14 @@ by Karen Li and Alex Liu
 Features:
 	Forks and executes commands!
 	Parses multiple commands on one line!
+	Simple redirection (>, <, >>) and piping
 
 Attempted:
 
 
 Bugs:
 	Putting two ;'s next to each other will break the parser
-	Typing nothing and hitting the enter key breaks the parser
+
 	
 Files & Function Headers:
 parse.c
@@ -24,18 +25,66 @@ parse.c
 	====================*/
 
 	/*======== char * trim() ==========
-	Inputs:  char *line 
+	Inputs:  char * line 
 	Returns: Pointer to the beginning of a string
 
 	Removes leading and trailing whitespace on the string line.
 	====================*/
 
 shell.c
-	Handles the forking an executing of commands
+	Handles the forking an executing of simple commands
 	/*======== void execute() ==========
-	Inputs:  Nothing
+	Inputs:  char * command
 	Returns: Nothing
 
-	Reads commands, forks, and executes.
+	Reads forks and executes simple commands.
 	====================*/
 
+	Handles the forking an executing of all commands
+	/*======== void execute_all() ==========
+	Inputs:  char * line
+	Returns: Nothing
+
+	Parses through every command and determines method of execution.
+	====================*/
+
+redirect.c
+	Handles redirection
+
+	/*======== int redirect() ==========
+	Inputs:  char * command, int * fd
+	Returns: The value of the filedescriptor that was used.
+
+	Redirects standard output.
+	====================*/
+
+	/*======== int direction() ==========
+	Inputs:  char * symbol
+	Returns: The index of an array 
+
+	Determines the index of the files array to be used.
+	====================*/
+
+	/*======== int flag() ==========
+	Inputs:  char * symbol
+	Returns: The index of an array 
+
+	Determines the index of the flags array to be used.
+	====================*/
+	
+	/*======== char * redirect_symbol() ==========
+	Inputs: char * command
+	Returns:  A string containing a symbol
+
+	Determines the redirection symbol that is being used.
+	====================*/
+
+redirect.c
+	Handles piping
+
+	/*======== void my_pipe(); ==========
+	Inputs:  char * command
+	Returns: Nothing
+
+	Directs standard output from one command to standard input of another command.
+	====================*/
