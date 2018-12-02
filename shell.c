@@ -63,10 +63,15 @@ void execute_all(char * line){
 
     if (strchr(command, '>')){
       //redirect
-      char ** temp = parse_args(command);;
+      char * command1;
+      strcpy(command1, command);
+      command1 = trim(strsep(&command1, ">"));
+      printf("command1: %s\n", command1);
+      printf("command: %s\n", command);
+      char ** temp = parse_args(command);
       while(*temp){
 	if (strchr(*temp, '>')){
-	  redirect (*(temp-1), *(temp+1), &fd, direction(*temp), flag(*temp));	
+	  redirect (command1, *(temp+1), &fd, direction(*temp), flag(*temp));	
 	}
 	temp++;
       }
