@@ -4,6 +4,6 @@
 int redirect(char *, int * fd);
 int direction(char *);
 int flag(char *);
-char * symbol(char *);
+char * redirect_symbol(char *);
 
 #endif

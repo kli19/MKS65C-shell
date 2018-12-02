@@ -9,6 +9,7 @@
 #include "parse.h"
 #include "redirect.h"
 #include "extra.h"
+#include "pipe.h"
 
 void execute(char * command){
   //read the arguments of the command into an array
@@ -62,11 +63,12 @@ void execute_all(char * line){
     }
 
     // for redirection
-    if (symbol(command)){
+    if (redirect_symbol(command)){
       //printf("we are redirecting now\n");
       redirect(command, &fd);
     }
 
+    
 
     else{
       execute(command);

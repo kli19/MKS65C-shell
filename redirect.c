@@ -18,7 +18,7 @@ int redirect(char * command, int * fd){
   int files[3] = { STDIN_FILENO, STDOUT_FILENO, STDERR_FILENO};
   int flags[3] = {O_CREAT|O_WRONLY|O_TRUNC, O_APPEND|O_CREAT|O_WRONLY, O_RDONLY};
 
-  char * command_symbol = symbol(command);
+  char * command_symbol = redirect_symbol(command);
   
   char * command1 = malloc(10);
   char * command2 = malloc(10);
@@ -51,7 +51,7 @@ int redirect(char * command, int * fd){
   return *fd;
 }
 
-char * symbol(char * command){
+char * redirect_symbol(char * command){
   char * symbol = 0;
   if (strstr(command, ">")){
     symbol = ">";
@@ -62,10 +62,13 @@ char * symbol(char * command){
   if (strstr(command, ">>")){
     symbol = ">>";
   }
+  /*
   if (strstr(command, "<<")){
     symbol = "<<";
   }
+  */
   return symbol;
+
 }
 
 int direction(char * symbol){
