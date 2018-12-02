@@ -11,27 +11,27 @@
 #include "extra.h"
 
 void execute(char * command){
-      //read the arguments of the command into an array
-      char ** args = parse_args(command);
+  //read the arguments of the command into an array
+  char ** args = parse_args(command);
 
-      //fork to execute the command and return
-      int f = fork();
+  //fork to execute the command and return
+  int f = fork();
 
-      //something went wrong with forking
-      if(f==-1){
-	printf("error");
-      }
+  //something went wrong with forking
+  if(f==-1){
+    printf("error");
+  }
 
-      //execute the command in the child process
-      if(f==0){
-	execvp(args[0], args);
-      }
+  //execute the command in the child process
+  if(f==0){
+    execvp(args[0], args);
+  }
 
-      //wait until the child process is done
-      else{
-	int status;
-	wait(&status);
-      }
+  //wait until the child process is done
+  else{
+    int status;
+    wait(&status);
+  }
 }
 
 //executes commands
@@ -61,21 +61,12 @@ void execute_all(char * line){
       exit(0);
     }
 
-    if (strchr(command, '>')){
-      //redirect
-      char * command1;
-      strcpy(command1, command);
-      command1 = trim(strsep(&command1, ">"));
-      printf("command1: %s\n", command1);
-      printf("command: %s\n", command);
-      char ** temp = parse_args(command);
-      while(*temp){
-	if (strchr(*temp, '>')){
-	  redirect (command1, *(temp+1), &fd, direction(*temp), flag(*temp));	
-	}
-	temp++;
-      }
+    // for redirection
+    if (symbol(command)){
+      //printf("we are redirecting now\n");
+      redirect(command, &fd);
     }
+
 
     else{
       execute(command);
