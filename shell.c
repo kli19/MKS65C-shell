@@ -9,9 +9,34 @@
 #include "parse.h"
 #include "redirect.h"
 #include "extra.h"
+#include "pipe.h"
+
+void execute(char * command){
+  //read the arguments of the command into an array
+  char ** args = parse_args(command);
+
+  //fork to execute the command and return
+  int f = fork();
+
+  //something went wrong with forking
+  if(f==-1){
+    printf("error");
+  }
+
+  //execute the command in the child process
+  if(f==0){
+    execvp(args[0], args);
+  }
+
+  //wait until the child process is done
+  else{
+    int status;
+    wait(&status);
+  }
+}
 
 //executes commands
-void execute(char * line){
+void execute_all(char * line){
   if(line[0]==0){
     strcat(line, " ");
   }
@@ -37,43 +62,20 @@ void execute(char * line){
       exit(0);
     }
 
+    // for redirection
+    if (redirect_symbol(command)){
+      //printf("we are redirecting now\n");
+      redirect(command, &fd);
+    }
+
+    // for piping
+    if (strstr(command, "|")){
+      //printf("we are piping now\n");
+      my_pipe(command);
+    }
+
     else{
-      //read the arguments of the command into an array
-      char ** args = parse_args(command);
-
-      //redirect
-      char ** temp = malloc (100 * sizeof(char));
-      temp = args;
-      while(*temp){
-	if (strchr(*temp, '>')||strchr(*temp, '<')){
-	  /*printf("we are going to redirect now!\n");
-	  printf("%s\n",*(temp-1));
-	  printf("%s\n",*temp);
-	  printf("%s\n",*(temp+1));*/
-	  //fd = redirect (*(temp+1), &fd, direction(*temp), flag(*temp));
-	  fd = redirect (*(temp+1), &fd, 0,0);
-	}
-	temp++;
-      }
-
-      //fork to execute the command and return
-      int f = fork();
-
-      //something went wrong with forking
-      if(f==-1){
-	printf("error");
-      }
-
-      //execute the command in the child process
-      if(f==0){
-	execvp(args[0], args);
-      }
-
-      //wait until the child process is done
-      else{
-	int status;
-	wait(&status);
-      }
+      execute(command);
     }
   }
 
@@ -117,7 +119,7 @@ int main(){
     }
     // fgets(line, 100, stdin);
     printf("\012");
-    execute(line);
+    execute_all(line);
     strcpy(line,"");
   }
 
