@@ -43,7 +43,6 @@ void execute_all(char * line){
   //for redirection
   int stdout_fd = dup(STDOUT_FILENO);
   int stdin_fd = dup(STDIN_FILENO);
-  int fd = 0;
 
   while(line){
     //separates the line into individual commands
@@ -58,18 +57,20 @@ void execute_all(char * line){
     }
 
     //if the command is exit
-    if (!strncmp("exit", command, 4)){
+    else if (!strncmp("exit", command, 4)){
       exit(0);
     }
 
     // for redirection
-    if (redirect_symbol(command)){
+    else if (redirect_symbol(command)){
+      int fd = 0;
       //printf("we are redirecting now\n");
-      redirect(command, &fd);
-    }
+      close(redirect(command, &fd));
 
+    }
+    
     // for piping
-    if (strstr(command, "|")){
+    else if (strstr(command, "|")){
       //printf("we are piping now\n");
       my_pipe(command);
     }
@@ -80,7 +81,6 @@ void execute_all(char * line){
   }
 
   //reset redirection stuff
-  close(fd);
   dup2(stdout_fd, STDOUT_FILENO);
   dup2(stdin_fd, STDIN_FILENO);
 }
@@ -97,6 +97,7 @@ int main(){
     char cwd[PATH_MAX];
     getcwd(cwd, PATH_MAX);
     printf("my_shell:~%s$ ", cwd);
+    /*
     while (1){
       char * temp = keyFinder();
       if (strcmp(temp,"back") == 0){
@@ -117,10 +118,11 @@ int main(){
         break;
       }
     }
-    // fgets(line, 100, stdin);
-    printf("\012");
+    */
+    fgets(line, 100, stdin);
+    //printf("\012");
     execute_all(line);
-    strcpy(line,"");
+    //strcpy(line,"");
   }
 
   return 0;

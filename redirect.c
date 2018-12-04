@@ -43,7 +43,29 @@ int redirect(char * command, int * fd){
  
   *fd = open(command2, flags[flag(command_symbol)], 0777);
   dup2(*fd, files[direction(command_symbol)]);
-  execute(command1);
+  //read the arguments of the command into an array
+  char ** args = parse_args(command1);
+
+  printf("fd outside: %d\n", *fd);
+  //fork to execute the command and return
+  int f = fork();
+
+  //something went wrong with forking
+  if(f==-1){
+    printf("error");
+  }
+
+  //execute the command in the child process
+  if(f==0){
+    printf("fd inside : %d \n", *fd);
+    execvp(args[0], args);
+  }
+
+  //wait until the child process is done
+  else{
+    int status;
+    wait(&status);
+  }
   
   //reset
   dup2(stdout_fd, STDOUT_FILENO);
