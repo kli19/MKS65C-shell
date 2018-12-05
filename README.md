@@ -7,7 +7,7 @@ Features:
 	Simple redirection (>, <, >>) and piping
 
 Attempted:
-
+	Attempted tabbing but we had issues concatenating spaces to our line.
 
 Bugs:
 	Putting two ;'s next to each other will break the parser
