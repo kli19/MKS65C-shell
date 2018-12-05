@@ -153,7 +153,7 @@ int main(){
     // }
 
     fgets(line, 100, stdin);
-    printf("\012");
+    //printf("\012");
     // printf("end line; %s\n", line);
     execute_all(line);
     //strcpy(line,"");
