@@ -31,9 +31,9 @@ char * trim(char * line){
     end--;
     whitespace++;
   }
-  
+
   char * newStr = calloc(1, strlen(line)-whitespace);
   strncpy(newStr, line, strlen(line)-whitespace);
-  
+
   return newStr;
 }
