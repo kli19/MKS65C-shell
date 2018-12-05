@@ -54,6 +54,7 @@ void execute_all(char * line){
 
     //if the command is cd
     if (!strncmp("cd ", command, 3)){
+      //skips the cd and find the path to input into chdir
       chdir(command+3);
     }
 
@@ -90,6 +91,7 @@ int main(){
 
   //allocates space to read in commands
   char * line = malloc(100 * sizeof(char));
+  int spa = 0;
 
   while(1){
 
@@ -98,27 +100,60 @@ int main(){
     getcwd(cwd, PATH_MAX);
     printf("my_shell:~%s$ ", cwd);
     while (1){
-      char * temp = keyFinder();
-      if (strcmp(temp,"back") == 0){
-        execute("clear");
-        printf("\nmy_shell:~%s$ ", cwd);
-        char * temp = malloc(sizeof(line));
-        temp = removeLast(line);
-        printf("BEFORE          \n");
-        // strcpy(line, temp);
-        line = temp;
-        printf("AFTER          \n");
-        printf("%s\n", line);
-      } else if (strcmp(temp,"end")){
-        strcat(line, temp);
-      }
-      else {
-        // printf("LINE: %s\n", line);
-        break;
-      }
-    }
-    // fgets(line, 100, stdin);
+    //   char * temp = keyFinder(line, 0);
+    //   char * tabu = tabby(line, 1);
+    //   // printf("%s\n", temp);
+    //   // if (strcmp(temp,"back") == 0){
+    //   //   execute("clear");
+    //   //   printf("\nmy_shell:~%s$ ", cwd);
+    //   //   char * temp = malloc(sizeof(line));
+    //   //   temp = removeLast(line);
+    //   //   printf("BEFORE          \n");
+    //   //   // strcpy(line, temp);
+    //   //   line = temp;
+    //   //   printf("AFTER          \n");
+    //   //   printf("%s\n", line);
+    //   // } else
+    //   if (strcmp(temp,"multiple") == 0){
+    //     // printf("%s\n", temp);
+    //     // printf("%d\n", strcmp(temp,"multiple"));
+    //     printf("\nPlease be more specific\n");
+    //     break;
+    //   }
+    //   else if (strcmp(temp,"true") == 0){
+    //     printf("%s\n", temp);
+    //     printf("%d\n", strcmp(temp,"true"));
+    //     printf("KEYFINDER 1: %s\n", tabu);
+    //     strcat(line, tabu);
+    //     printf("%s\n", line);
+    //     break;
+    //   }
+    //   else if (strcmp(temp,"space") == 0){
+    //     printf("SAPCE ADDED\n");
+    //     // line[strlen(line)] = ' '; // overwrite null termination
+    //     // line[strlen(line) + 1] = '\0'; // add a new null termination
+    //     strcat(line, " .");
+    //     spa = 1;
+    //   }
+    //   else if (strcmp(temp,"end")){
+    //     // printf("TEMP: %s\n", temp);
+    //     // printf("%d\n", strcmp(temp,"end"));
+    //     if (spa){
+    //       strcpy( line+strlen(line) + 1, temp );
+    //       spa = 0;
+    //     } else{
+    //       strcat(line, temp);
+    //     }
+    //   }
+    //   else {
+    //     // printf("LINE: %s\n", line);
+    //     break;
+    //   }
+    // }
+
+    fgets(line, 100, stdin);
     printf("\012");
+    printf("end line; %s\n", line);
     execute_all(line);
     strcpy(line,"");
   }
