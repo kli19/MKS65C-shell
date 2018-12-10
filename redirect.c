@@ -46,7 +46,7 @@ int redirect(char * command, int * fd){
   //read the arguments of the command into an array
   char ** args = parse_args(command1);
 
-  printf("fd outside: %d\n", *fd);
+  //printf("fd outside: %d\n", *fd);
   //fork to execute the command and return
   int f = fork();
 
