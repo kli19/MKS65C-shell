@@ -57,7 +57,7 @@ int redirect(char * command, int * fd){
 
   //execute the command in the child process
   if(f==0){
-    printf("fd inside : %d \n", *fd);
+    //printf("fd inside : %d \n", *fd);
     execvp(args[0], args);
   }
 

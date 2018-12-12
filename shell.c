@@ -98,8 +98,9 @@ int main(){
     //prints path
     char cwd[PATH_MAX];
     getcwd(cwd, PATH_MAX);
-    printf("my_shell:~%s$ ", cwd);
-
+    if (isatty(0)){
+      printf("my_shell:~%s$ ", cwd);
+    }
     // while (1){
     //   char * temp = keyFinder(line, 0);
     //   char * tabu = tabby(line, 1);
